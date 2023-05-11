@@ -14,7 +14,7 @@ class PropertiesTest extends TestCase
     public function test_property_owner_has_access_to_properties_feature()
     {
         $owner = User::factory()->create()->assignRole(Role::ROLE_OWNER);
-        $response = $this->actingAs($owner)->getJson('/api/owner/properties');
+        $response = $this->actingAs($owner)->withoutExceptionHandling()->getJson('/api/owner/properties');
 
         $response->assertStatus(200);
     }
@@ -25,5 +25,20 @@ class PropertiesTest extends TestCase
         $response = $this->actingAs($user)->getJson('/api/owner/properties');
 
         $response->assertStatus(403);
+    }
+
+    public function test_property_owner_can_add_property()
+    {
+        $owner = User::factory()->create()->assignRole(Role::ROLE_OWNER);
+
+        $response = $this->actingAs($owner)->withoutExceptionHandling()->postJson('/api/owner/properties', [
+            'name' => 'My property',
+            'city_id' => 1,
+            'address_street' => 'Street Address 1',
+            'address_postcode' => '12345',
+        ]);
+ 
+        $response->assertSuccessful();
+        $response->assertJsonFragment(['name' => 'My property']);
     }
 }

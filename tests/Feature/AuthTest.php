@@ -10,6 +10,7 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** @test */
     public function test_registration_fails_with_admin_role()
     {
         $response = $this->postJson('/api/auth/register', [
@@ -22,7 +23,8 @@ class AuthTest extends TestCase
 
         $response->assertStatus(422);
     }
-
+    
+    /** @test */
     public function test_registration_succeeds_with_owner_role()
     {
         $response = $this->postJson('/api/auth/register', [
@@ -38,6 +40,7 @@ class AuthTest extends TestCase
         ]);
     }
 
+    /** @test */
     public function test_registration_succeeds_with_user_role()
     {
         $response = $this->postJson('/api/auth/register', [
