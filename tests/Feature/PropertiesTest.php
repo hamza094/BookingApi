@@ -41,4 +41,6 @@ class PropertiesTest extends TestCase
         $response->assertSuccessful();
         $response->assertJsonFragment(['name' => 'My property']);
     }
+
+    
 }
