@@ -41,4 +41,13 @@ class Property extends Model
     {
         return $this->hasMany(Apartment::class);
     }
+
+    public function address(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->address_street
+                 . ', ' . $this->address_postcode
+                 . ', ' . $this->city->name
+        );
+    }
 }
