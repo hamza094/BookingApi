@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\FacilityResource;
+
 
 class ApartmentSearchResource extends JsonResource
 {
@@ -20,6 +22,8 @@ class ApartmentSearchResource extends JsonResource
            'size' => $this->size,
            'beds_list' => $this->beds_list,
            'bathrooms' => $this->bathrooms,
+           'facilities' => FacilityResource::collection($this->whenLoaded('facilities')),
         ];
+        
     }
 }

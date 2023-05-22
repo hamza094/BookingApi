@@ -19,6 +19,7 @@ class ApartmentFactory extends Factory
     {
         return [
             'property_id' => Property::value('id'),
+            'apartment_type_id'=>1,
             'name' => fake()->text(20),
             'capacity_adults' => rand(1, 5),
             'capacity_children' => rand(1, 5)

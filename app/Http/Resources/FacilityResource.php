@@ -4,9 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Http\Resources\ApartmentSearchResource;
-
-class PropertySearchResource extends JsonResource
+class FacilityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +15,7 @@ class PropertySearchResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            //'address' => $this->address,
-            'lat' => $this->lat,
-            'long' => $this->long,
-            'apartments' => ApartmentSearchResource::collection($this->apartments),
+         'name' => $this->name,
         ];
     }
 }
