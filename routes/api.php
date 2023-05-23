@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Owner\PropertyController;
 use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\Public\PropertySearchController;
+use App\Http\Controllers\Public;
 
 
 Route::post('auth/register', RegisterController::class);
@@ -24,5 +25,6 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::get('search',PropertySearchController::class);
 
-Route::get('properties/{property}',
-    \App\Http\Controllers\Public\PropertyController::class);
+Route::get('properties/{property}',Public\PropertyController::class);
+
+Route::get('apartments/{apartment}', Public\ApartmentController::class);
