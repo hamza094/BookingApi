@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\PropertyObserver;
+use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Property extends Model
 {
     use HasFactory;
+    use HasEagerLimit;
 
      public static function booted()
     {
@@ -17,15 +19,7 @@ class Property extends Model
         self::observe(PropertyObserver::class);
     }
 
-       protected $fillable = [
-        'user_id',
-        'name',
-        'city_id',
-        'address_street',
-        'address_postcode',
-        'lat',
-        'long',
-    ];
+       protected $guarded = [];
 
     public function city()
     {
@@ -49,5 +43,10 @@ class Property extends Model
                  . ', ' . $this->address_postcode
                  . ', ' . $this->city->name
         );
+    }
+
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class);
     }
 }
