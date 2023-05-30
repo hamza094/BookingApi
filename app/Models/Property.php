@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Observers\PropertyObserver;
 use Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Property extends Model
+class Property extends Model implements HasMedia
 {
     use HasFactory;
     use HasEagerLimit;
+    use InteractsWithMedia;
 
      public static function booted()
     {
@@ -48,5 +52,11 @@ class Property extends Model
     public function facilities()
     {
         return $this->belongsToMany(Facility::class);
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumbnail')
+            ->width(800);
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Owner\PropertyController;
 use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\Public\PropertySearchController;
+use App\Http\Controllers\Owner\PropertyPhotoController;
 use App\Http\Controllers\Public;
 
 
@@ -15,6 +16,10 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::prefix('owner')->group(function () {
     Route::get('properties',[PropertyController::class, 'index']);
     Route::post('properties',[PropertyController::class, 'store']);
+    Route::post('properties/{property}/photos',[PropertyPhotoController::class, 'store']);
+
+    Route::post('properties/{property}/photos/{photo}/reorder/{newPosition}',
+        [PropertyPhotoController::class, 'reorder']);
 });
  
   Route::prefix('user')->group(function () {
