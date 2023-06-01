@@ -13,7 +13,14 @@ class PropertySearchController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $properties= Property::with(['city','apartments.apartment_type','apartments.rooms.beds.bed_type','facilities',
+        $properties= Property::with(['city','apartments.apartment_type','apartments.rooms.beds.bed_type',
+            'apartments.prices' => function($query) use ($request) {
+                $query->validForRange([
+                    $request->start_date ?? now()->addDay()->toDateString(),
+                    $request->end_date ?? now()->addDays(2)->toDateString(),
+                ]);
+            },
+            'facilities',
                 'media' => fn($query) => $query->orderBy('position')
             ])
             ->when($request->city, function($query) use ($request) {
@@ -47,7 +54,16 @@ class PropertySearchController extends Controller
                 $query->whereHas('facilities', function($query) use ($request) {
                     $query->whereIn('facilities.id', $request->facilities);
                 });
-            })->get();
+            })->->when($request->price_from, function($query) use ($request) {
+            $query->whereHas('apartments.prices', function($query) use ($request) {
+                $query->where('price', '>=', $request->price_from);
+            });
+        })
+        ->when($request->price_to, function($query) use ($request) {
+            $query->whereHas('apartments.prices', function($query) use ($request) {
+                $query->where('price', '<=', $request->price_to);
+            });
+        })->get();
 
 
     $facilities = Facility::query()
