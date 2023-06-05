@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Owner\PropertyController;
-use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\Public\PropertySearchController;
 use App\Http\Controllers\Owner\PropertyPhotoController;
 use App\Http\Controllers\Public;
+use App\Http\Controllers\User\BookingController;
 
 
 Route::post('auth/register', RegisterController::class);
@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->group(function() {
 });
  
   Route::prefix('user')->group(function () {
-    Route::get('bookings',[BookingController::class, 'index']);
+      Route::resource('bookings', BookingController::class);
 });
 
 });
