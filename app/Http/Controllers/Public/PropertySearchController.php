@@ -22,7 +22,8 @@ class PropertySearchController extends Controller
             },
             'facilities',
                 'media' => fn($query) => $query->orderBy('position')
-            ])
+            ])->withAvg('bookings', 'rating')
+        
             ->when($request->city, function($query) use ($request) {
                 $query->where('city_id', $request->city);
             })

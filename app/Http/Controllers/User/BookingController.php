@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateBookingRequest;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
@@ -40,6 +41,18 @@ class BookingController extends Controller
         }
  
         return new BookingResource($booking);
+    }
+
+    public function update(Booking $booking, UpdateBookingRequest $request)
+    {
+
+    if ($booking->user_id != auth()->id()) {
+            return "not allowed to perform this action";
+    }
+ 
+    $booking->update($request->validated());
+ 
+    return new BookingResource($booking);
     }
  
     public function destroy(Booking $booking)
