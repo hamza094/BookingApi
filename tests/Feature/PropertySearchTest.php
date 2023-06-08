@@ -55,7 +55,7 @@ class PropertySearchTest extends TestCase
         $response = $this->getJson('/api/search?country=' . $countries[0]->id);
 
         $response->assertStatus(200);
-        //$response->assertJsonCount(1, 'properties.data');
+        $response->assertJsonCount(1, 'properties.data');
         $response->assertJsonFragment(['id' => $propertyInCountry->id]);
     }
 
