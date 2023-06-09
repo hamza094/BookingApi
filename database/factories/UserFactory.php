@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -35,6 +36,20 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+       public function owner()
+    {
+        return $this->state(fn(array $attributes) => [
+            'role_id' => Role::ROLE_OWNER,
+        ]);
+    }
+ 
+    public function user()
+    {
+        return $this->state(fn(array $attributes) => [
+            'role_id' => Role::ROLE_USER,
         ]);
     }
 }

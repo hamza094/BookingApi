@@ -22,7 +22,7 @@ class PropertyFactory extends Factory
         return [
             'user_id' => User::factory()->create()->assignRole(Role::ROLE_OWNER),
             'name' => fake()->text(20),
-            'city_id' => City::value('id'),
+            'city_id' => City::inRandomOrder()->value('id'),
             'address_street' => fake()->streetAddress(),
             'address_postcode' => fake()->postcode(),
             'lat' => fake()->latitude(),

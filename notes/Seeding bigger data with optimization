@@ -1,0 +1,16 @@
+
+**** Seeding Big(ger) Data with Optimizations ****
+
+To efficiently seed large amounts of data into a database, consider the following techniques:
+
+- Create a separate seeder class specifically for testing large databases.
+
+- When using factories to seed large data sets, be aware that it may take more time due to the increased volume.
+
+- If accuracy is not a priority and you want to seed a significant amount of data, consider bypassing factories and directly populating the seeder file.
+
+- Utilize bulk create or insert operations with an array chunk size of 500, and set the maximum and minimum ID values accordingly.
+
+- Instead of storing 2000 items in an array, retain the array after every 500 data points to optimize memory usage.
+
+By implementing these optimization techniques, you can effectively seed big(ger) data into your database.
