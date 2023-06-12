@@ -1,0 +1,9 @@
+**** Optimizing Search Endoint ****
+
+- 'apartments.rooms.beds.bed_type' instead of hasManyThrough in appartments beds use hasMany 
+
+- bedsList() accesor accordingly
+
+- move lower ->orderBy('bookings_avg_rating', 'desc') after when 
+
+- use column for bookings_avg_rating 
